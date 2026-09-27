@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cjyewfnkssbib"]
+
+[ext_resource type="Script" uid="uid://ckihfkcptn282" path="res://components/weapons/Weapon.gd" id="1_67fdn"]
+[ext_resource type="PackedScene" uid="uid://bpllb80q2e6xx" path="res://objects/items/weapons/laser/laser.tscn" id="1_bx23n"]
+
+[resource]
+script = ExtResource("1_67fdn")
+is_ranged = true
+projectile_scene = ExtResource("1_bx23n")
+metadata/_custom_type_script = "uid://ckihfkcptn282"

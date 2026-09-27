@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://d4imvctidcmn5"]
+
+[node name="ProjectileEmitter" type="Marker2D" unique_id=566202909]

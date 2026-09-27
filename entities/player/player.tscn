@@ -1,0 +1,337 @@
+[gd_scene format=3 uid="uid://6vib2fpq5h03"]
+
+[ext_resource type="Script" uid="uid://cfi7iqdmejs38" path="res://entities/player/player.gd" id="1_26q78"]
+[ext_resource type="Resource" uid="uid://cjyewfnkssbib" path="res://objects/items/weapons/laser/laser.tres" id="2_2hs0m"]
+[ext_resource type="Script" uid="uid://g6250p5l2yhc" path="res://components/statemachine/StateMachine.gd" id="3_26q78"]
+[ext_resource type="Texture2D" uid="uid://bb0gwdmtplyd2" path="res://assets/sprites/player/base/char_a_p1_0bas_humn_v01.png" id="3_bectd"]
+[ext_resource type="Script" uid="uid://drx0o08la2678" path="res://components/statemachine/states/Idle.gd" id="4_hqtel"]
+[ext_resource type="PackedScene" uid="uid://d4imvctidcmn5" path="res://components/weapons/projectiles/projectile_emitter.tscn" id="5_sweqy"]
+[ext_resource type="Script" uid="uid://br8yihl5gthct" path="res://components/statemachine/states/Move.gd" id="5_wvtmh"]
+[ext_resource type="Script" uid="uid://cee8wvevwpa2y" path="res://components/statemachine/states/Attack.gd" id="6_1jxqw"]
+[ext_resource type="Script" uid="uid://clx08fe72rn23" path="res://components/weapons/projectiles/ProjectileEmitter.gd" id="8_dw050"]
+[ext_resource type="Script" uid="uid://bq8r2nv4xk7je" path="res://entities/player/PlayerBrain.gd" id="11_7thud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3rtau"]
+size = Vector2(127, 127)
+
+[sub_resource type="Animation" id="Animation_i3pqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hqtel"]
+resource_name = "idle_e"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_sweqy"]
+resource_name = "idle_n"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2hs0m"]
+resource_name = "idle_s"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_1jxqw"]
+resource_name = "idle_w"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_ivps1"]
+resource_name = "laser_bolt"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire_projectile"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7thud"]
+resource_name = "run_e"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 54, 51, 52, 55]
+}
+
+[sub_resource type="Animation" id="Animation_wvtmh"]
+resource_name = "run_n"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 46, 43, 44, 47]
+}
+
+[sub_resource type="Animation" id="Animation_bectd"]
+resource_name = "run_s"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 38, 36, 36, 39]
+}
+
+[sub_resource type="Animation" id="Animation_a1qjk"]
+resource_name = "run_w"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 62, 59, 60, 63]
+}
+
+[sub_resource type="Animation" id="Animation_b26j0"]
+resource_name = "walk_e"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52, 53]
+}
+
+[sub_resource type="Animation" id="Animation_n7ghd"]
+resource_name = "walk_n"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 42, 43, 44, 45]
+}
+
+[sub_resource type="Animation" id="Animation_dw050"]
+resource_name = "walk_s"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(7.450581e-09, 0.10000001, 0.20000002, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 34]
+}
+
+[sub_resource type="Animation" id="Animation_nvl01"]
+resource_name = "walk_w"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 58, 59, 60, 61]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b26j0"]
+_data = {
+&"RESET": SubResource("Animation_i3pqv"),
+&"idle_e": SubResource("Animation_hqtel"),
+&"idle_n": SubResource("Animation_sweqy"),
+&"idle_s": SubResource("Animation_2hs0m"),
+&"idle_w": SubResource("Animation_1jxqw"),
+&"laser_bolt": SubResource("Animation_ivps1"),
+&"run_e": SubResource("Animation_7thud"),
+&"run_n": SubResource("Animation_wvtmh"),
+&"run_s": SubResource("Animation_bectd"),
+&"run_w": SubResource("Animation_a1qjk"),
+&"walk_e": SubResource("Animation_b26j0"),
+&"walk_n": SubResource("Animation_n7ghd"),
+&"walk_s": SubResource("Animation_dw050"),
+&"walk_w": SubResource("Animation_nvl01")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=1651929982]
+motion_mode = 1
+script = ExtResource("1_26q78")
+equipped_weapon = ExtResource("2_2hs0m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1335681354]
+scale = Vector2(3.109375, 3.109375)
+texture = ExtResource("3_bectd")
+hframes = 8
+vframes = 8
+frame = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1089384370]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_3rtau")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=168941550]
+libraries/ = SubResource("AnimationLibrary_b26j0")
+
+[node name="StateMachine" type="Node" parent="." unique_id=318998661 node_paths=PackedStringArray("initial_state", "actor")]
+script = ExtResource("3_26q78")
+initial_state = NodePath("Idle")
+actor = NodePath("..")
+
+[node name="Run" type="Node" parent="StateMachine" unique_id=909242352]
+script = ExtResource("5_wvtmh")
+speed = 250.0
+move_anim = 2
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=849560414]
+script = ExtResource("4_hqtel")
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1835640838]
+script = ExtResource("6_1jxqw")
+
+[node name="Walk" type="Node" parent="StateMachine" unique_id=1066132035]
+script = ExtResource("5_wvtmh")
+speed = 150.0
+move_anim = 1
+
+[node name="ProjectileEmitter" parent="." unique_id=566202909 instance=ExtResource("5_sweqy")]
+script = ExtResource("8_dw050")
+
+[node name="Brain" type="Node" parent="." unique_id=1187233993]
+script = ExtResource("11_7thud")

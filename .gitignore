@@ -1,0 +1,26 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Imported translations (generated from .po files)
+*.translation
+
+# Export credentials — keystore passwords etc. (Godot 4.4+)
+export_credentials.cfg
+
+# Exported builds
+/build/
+/builds/
+/export/
+/exports/
+
+# Mono-specific ignores (only relevant if C# is ever added)
+.mono/
+data_*/
+mono_crash.*.json
+
+# macOS
+.DS_Store
+
+# ZCode workspace
+.zcode/
