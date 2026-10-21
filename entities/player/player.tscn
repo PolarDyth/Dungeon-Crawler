@@ -295,6 +295,9 @@ motion_mode = 1
 script = ExtResource("1_26q78")
 equipped_weapon = ExtResource("2_2hs0m")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=343091028]
+position_smoothing_enabled = true
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1335681354]
 scale = Vector2(3.109375, 3.109375)
 texture = ExtResource("3_bectd")
